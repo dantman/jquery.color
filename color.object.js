@@ -128,7 +128,9 @@ $.Color.fn = $.Color.prototype = {
 		return util.hasOwnProperty('toString') ? util.toString(this) : this.to('RGB').toString();
 	},
 	
-	join: [].join
+	join: [].join,
+	push: [].push,
+	slice: [].slice
 };
 
 // Check whether the given argument is a valid color object

@@ -15,7 +15,9 @@ $.color.space.push('RGB');
 $.color.RGB = {
 
 	fix: function ( rgb ) {
-		return $.color.fix(rgb, 0, 255, Math.round);
+		if( rgb.length === 3 ) rgb.push( 1 );
+		rgb = $.color.fix(rgb, 'www1');
+		return rgb;
 	},
 
 	// RGB values must be integers in the range 0-255
@@ -24,7 +26,13 @@ $.color.RGB = {
 	},
 
 	toCSS: function ( rgb ) {
-		return 'rgb(' + rgb.join(',') + ')';
+		if( rgb.length === 4 && rgb[3] === 0 )
+			// Completely transparent, use the universally supported name
+			return 'transparent'
+		if( rgb.length === 4 && rgb[3] < 1 )
+			// Color is not opaque (should we test if the browser can handle rgba?)
+			return 'rgba(' + rgb.join(',') + ')';
+		return 'rgb(' + rgb.slice(0,3).join(',') + ')';
 	}
 
 };

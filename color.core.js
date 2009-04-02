@@ -22,9 +22,27 @@ $.color = {
 	// Fix the values in a colour tuple to the given range
 	// and optionally apply a function first (eg. Math.round)
 	fix: function ( tuple, min, max, fn ) {
-		var i = tuple.length;
-		while (i--) {
-			tuple[i] = Math.min(max, Math.max(min, fn ? fn(tuple[i]) : tuple[i]));
+		if ( typeof min === "string" ) {
+			// min is actually a string format
+			tuple = tuple.slice(0, min.length);
+			while (i--) {
+				switch(min.charAt(i)) {
+					case 'i': // integer
+						tuple = Math.round(tuple[i]);
+						break;
+					case 'w': // word; integer 0..255
+						tuple = Math.min(255, Math.max(0, Math.round(tuple[i])));
+						break;
+					case '1': // one: float, 0..1
+						tuple = Math.min(1, Math.max(0, tuple[i]));
+						break;
+				}
+			}
+		} else {
+			var i = tuple.length;
+			while (i--) {
+				tuple[i] = Math.min(max, Math.max(min, fn ? fn(tuple[i]) : tuple[i]));
+			}
 		}
 		return tuple;
 	},

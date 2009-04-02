@@ -40,7 +40,7 @@ $.extend($.color, {
 				return [parseInt(result[1]+result[1],16), parseInt(result[2]+result[2],16), parseInt(result[3]+result[3],16)];
 			}
 
-			// Look for rgba(0, 0, 0, 0) == transparent in Safari 3
+			// Look for rgba(0, 0, 0, 0) == transparent in Safari 3 and Firefox 3
 			if (result = /rgba\(0, 0, 0, 0\)|transparent/.exec(color)) {
 				return [255,255,255];
 			}

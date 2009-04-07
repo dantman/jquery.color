@@ -16,8 +16,8 @@ $.color.space.push('HSV');
 $.color.HSV = {
 
 	fix: function ( hsv ) {
-		hsv[0] = hsv[0] % 1;
-		return $.color.fix(hsv, 0, 1);
+		hsv[0] = (hsv[0] + 1) % 1;
+		return $.color.fix(hsv, '1111');
 	},
 
 	// HSV values are normalized to the range 0..1

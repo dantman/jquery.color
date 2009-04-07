@@ -15,8 +15,8 @@ $.color.space.push('RGB');
 $.color.RGB = {
 
 	fix: function ( rgb ) {
-		if( rgb.length === 3 ) rgb.push( 1 );
-		rgb = $.color.fix(rgb, 'www1');
+		if( rgb.length === 3 ) { rgb.push( 1 ); }
+		rgb = $.color.fix(rgb, 'ooo1');
 		return rgb;
 	},
 
@@ -26,13 +26,16 @@ $.color.RGB = {
 	},
 
 	toCSS: function ( rgb ) {
-		if( rgb.length === 4 && rgb[3] === 0 )
+		if( rgb.length === 4 && rgb[3] === 0 ) {
 			// Completely transparent, use the universally supported name
-			return 'transparent'
-		if( rgb.length === 4 && rgb[3] < 1 )
-			// Color is not opaque (should we test if the browser can handle rgba?)
+			return 'transparent';
+		}
+		if( rgb.length === 4 && rgb[3] < 1 ) {
+			// Color is not opaque - according to the CSS3 working draft we should
+			// not simply treat an RGBA value as an RGB value with opacity ignored.
 			return 'rgba(' + rgb.join(',') + ')';
-		return 'rgb(' + rgb.slice(0,3).join(',') + ')';
+		}
+		return 'rgb(' + Array.prototype.slice.call(rgb,0,3).join(',') + ')';
 	}
 
 };

@@ -27,7 +27,8 @@ $.Color = function ( color, type, name ) {
 	
 	if ( color && color.length ) {
 		// Copy channel values
-		var i = this.length = color.length;
+		var i;
+		i = this.length = color.length;
 		while( i-- ) {
 			this[i] = color[i];
 		}
@@ -102,9 +103,9 @@ $.Color.fn = $.Color.prototype = {
 	// Modify the individual colour channels, returning a new color object
 	modify: function( tuple ) {
 		// Ensure the color to be modified is the same type as the argument
-		var color = $.Color.isInstance(tuple) && tuple.type !== this.type
-					? this.to(tuple.type)
-					: new $.Color(this),
+		var color = $.Color.isInstance(tuple) && tuple.type !== this.type ?
+					this.to(tuple.type) :
+					new $.Color(this),
 			i = color.length,
 			mod = false;
 		
@@ -124,13 +125,13 @@ $.Color.fn = $.Color.prototype = {
 	},
 
 	toString: function() {
+		if ( !this.type ) { return ''; }
 		var util = this.util();
 		return util.hasOwnProperty('toString') ? util.toString(this) : this.to('RGB').toString();
 	},
 	
 	join: [].join,
-	push: [].push,
-	slice: [].slice
+	push: [].push
 };
 
 // Check whether the given argument is a valid color object

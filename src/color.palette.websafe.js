@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour Web-Safe Palette @VERSION
+ * jQuery Colour Web-Safe Palette @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -8,7 +8,7 @@
  * Depends:
  *  color.core.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 var x,y,z,p=[];
 
@@ -22,5 +22,6 @@ for (x=0;x<256;x+=51) {
 
 $.color.palette.websafe = p;
 
-})(jQuery);
+})(jQuery)
+);
 

@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour Hue-Saturation-Lightness @VERSION
+ * jQuery Colour Hue-Saturation-Lightness @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -9,7 +9,7 @@
  *	color.core.js
  *  color.rgb.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 //$.color.space.push('HSL');
 
@@ -25,5 +25,6 @@ $.color.RGB.toHSL =
 	}
 });
 
-})(jQuery);
+})(jQuery)
+);
 

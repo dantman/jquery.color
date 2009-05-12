@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour SVG/X11/CSS3 Palette @VERSION
+ * jQuery Colour SVG/X11/CSS3 Palette @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)

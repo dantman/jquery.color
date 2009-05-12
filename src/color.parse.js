@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour Parsing @VERSION
+ * jQuery Colour Parsing @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -8,7 +8,7 @@
  * Depends:
  *  color.core.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 $.extend($.color, {
 
@@ -73,5 +73,6 @@ $.extend($.color, {
 
 });
 
-})(jQuery);
+})(jQuery)
+);
 

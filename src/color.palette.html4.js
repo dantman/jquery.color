@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour HTML4 Palette @VERSION
+ * jQuery Colour HTML4 Palette @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)

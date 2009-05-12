@@ -8,7 +8,7 @@
  * Depends:
  *	color.core.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 $.color.space.push('RGB');
 
@@ -42,5 +42,6 @@ $.color.RGB = {
 
 $.color.RGB.toString = $.color.RGB.toHEX;
 
-})(jQuery);
+})(jQuery)
+);
 

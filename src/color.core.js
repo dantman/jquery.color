@@ -1,5 +1,5 @@
-/*
- * jQuery UI Colour @VERSION
+/*!
+ * jQuery Colour @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -56,7 +56,7 @@ $.color = {
 	// A collection of colour palettes
 	palette: {},
 	
-	// Supported colour spaces
+	// Supported colour spaces, in order or preferrence
 	space: []
 };
 

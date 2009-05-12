@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour Object @VERSION
+ * jQuery Colour Related Palette Generator @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -8,7 +8,7 @@
  * Depends:
  *  color.object.js
  */
-(function($) {
+(jQuery.Color && (function($) {
 
 // Generate a palette of related colours
 $.Color.fn.related = function( offset ) {
@@ -44,5 +44,6 @@ $.Color.fn.related.i18n = {
 	'triad': 'Triadic'
 };
 
-})(jQuery);
+})(jQuery)
+);
 

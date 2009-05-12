@@ -1,5 +1,5 @@
 /*
- * jQuery UI Colour Hue-Saturation-Value @VERSION
+ * jQuery Colour Hue-Saturation-Value @VERSION
  *
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)

@@ -9,7 +9,7 @@
  *  color.core.js
  *  color.rgb.js
  */
-;jQuery.Color || (function($) {
+(jQuery.color && jQuery.Color || (function($) {
 
 // Construct a colour object of a given type (eg. 'RGB', 'HSV')
 $.Color = function ( color, type, name ) {
@@ -139,5 +139,6 @@ $.Color.isInstance = function( color ) {
 	return color && typeof color === 'object' && color.color && color.type;
 };
 
-})(jQuery);
+})(jQuery)
+);
 

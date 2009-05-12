@@ -8,7 +8,7 @@
  * Depends:
  *  color.core.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 $.color.palette.html4 = {
 	aqua:		[0,255,255],
@@ -29,5 +29,6 @@ $.color.palette.html4 = {
 	yellow:		[255,255,0]
 };
 
-})(jQuery);
+})(jQuery)
+);
 

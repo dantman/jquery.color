@@ -1,22 +1,47 @@
-MODULES = color.core.js\
-	color.rgb.js\
-	color.hsv.js\
-	color.object.js\
-	color.parse.js\
-	color.related.js\
-	color.palette.css3.js
+PACKAGE = jquery-color
 
-COLOR_VER = `cat version.txt`
+SRC_DIR = src
+BUILD_DIR = build
+
+PREFIX = .
+DOCS_DIR = ${PREFIX}/docs
+TEST_DIR = ${PREFIX}/test
+DIST_DIR = ${PREFIX}/dist
+
+MODULES = ${SRC_DIR}/color.core.js\
+	${SRC_DIR}/color.rgb.js\
+	${SRC_DIR}/color.hsv.js\
+	${SRC_DIR}/color.object.js\
+	${SRC_DIR}/color.parse.js\
+	${SRC_DIR}/color.related.js\
+	${SRC_DIR}/color.palette.css3.js
+
+OUT = ${DIST_DIR}/${PACKAGE}.js
+OUT_MIN = ${DIST_DIR}/${PACKAGE}.min.js
+
+VERSION = `cat version.txt`
 TODAY = `date +%Y%m%d`
-SUB = sed "s/@VERSION/${COLOR_VER}/g; s/@DATE/${TODAY}/g"
+SUB = sed "s/@VERSION/${VERSION}/g; s/@DATE/${TODAY}/g"
 
-all: color.all.js
-	@@echo "Color library build complete."
+JAR = java -Dfile.encoding=utf-8 -jar ${BUILD_DIR}/js.jar
+MINJAR = java -jar ${BUILD_DIR}/yuicompressor-2.4.2.jar
 
-color.all.js: ${MODULES}
+all: concat
+	@@echo ${PACKAGE} "build complete."
+
+${DIST_DIR}:
+	@@mkdir -p ${DIST_DIR}
+
+concat: ${DIST_DIR} ${OUT}
+
+${OUT}: ${MODULES}
+	@@echo "Building" ${OUT}
+
+	@@mkdir -p ${DIST_DIR}
 	@@cat ${MODULES} | \
-		${SUB} > color.all.js
+		${SUB} > ${OUT};
 
 clean:
-	rm -rf color.all.js
+	@@echo "Removing Distribution directory:" ${DIST_DIR}
+	@@rm -rf ${DIST_DIR}
 

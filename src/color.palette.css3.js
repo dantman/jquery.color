@@ -8,7 +8,7 @@
  * Depends:
  *  color.core.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 $.color.palette.css3 = {
 	aliceblue:				[240,248,255],
@@ -160,5 +160,6 @@ $.color.palette.css3 = {
 	yellowgreen:			[154,205,50]
 };
 
-})(jQuery);
+})(jQuery)
+);
 

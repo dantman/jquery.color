@@ -9,7 +9,7 @@
  *	color.core.js
  *  color.rgb.js
  */
-(function($) {
+(jQuery.color && (function($) {
 
 $.color.space.push('HSV');
 
@@ -64,5 +64,6 @@ $.color.RGB.toHSV = function ( rgb ) {
 		max];
 };
 
-})(jQuery);
+})(jQuery)
+);
 

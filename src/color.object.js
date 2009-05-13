@@ -11,10 +11,10 @@
  */
 (jQuery.color && jQuery.Color || (function($) {
 
-// Construct a colour object of a given type (eg. 'RGB', 'HSV')
-$.Color = function ( color, type, name ) {
+// Construct a colour object of a given space (eg. 'RGB', 'HSV')
+$.Color = function ( color, space, name ) {
 	if ( typeof this === 'function' ) {
-		return new $.Color(color, type, name);
+		return new $.Color(color, space, name);
 	}
 	
 	if ( typeof color === 'string' && $.color.parse ) {
@@ -35,7 +35,7 @@ $.Color = function ( color, type, name ) {
 	}
 	
 	if ( color ) {
-		this.type = type || color.type || 'RGB';
+		this.space = space || color.space || 'RGB';
 		this.name = name || color.name;
 	}
 };
@@ -46,12 +46,12 @@ $.Color.fn = $.Color.prototype = {
 	
 	// Get the utility functions for the colour space
 	util: function() {
-		return $.color[this.type];
+		return $.color[this.space];
 	},
 	
 	// Convert the colour to a different colour space
-	to: function( type ) {
-		return this['to'+type]();
+	to: function( space ) {
+		return this['to'+space]();
 	},
 
 	// Ensure colour channels values are within the valid limits
@@ -61,9 +61,9 @@ $.Color.fn = $.Color.prototype = {
 	
 	// Modify the individual colour channels, returning a new color object
 	modify: function( tuple ) {
-		// Ensure the color to be modified is the same type as the argument
-		var color = $.Color.isInstance(tuple) && tuple.type !== this.type ?
-					this.to(tuple.type) :
+		// Ensure the color to be modified is the same space as the argument
+		var color = $.Color.isInstance(tuple) && tuple.space !== this.space ?
+					this.to(tuple.space) :
 					new $.Color(this),
 			i = color.length,
 			mod = false;
@@ -84,7 +84,7 @@ $.Color.fn = $.Color.prototype = {
 	},
 
 	toString: function() {
-		if ( !this.type ) { return ''; }
+		if ( !this.space ) { return ''; }
 		var util = this.util();
 		return util.hasOwnProperty('toString') ? util.toString(this) : this.to('RGB').toString();
 	},
@@ -95,25 +95,25 @@ $.Color.fn = $.Color.prototype = {
 
 // Check whether the given argument is a valid color object
 $.Color.isInstance = function( color ) {
-	return color && typeof color === 'object' && color.color === $.Color.fn.color && color.type;
+	return color && typeof color === 'object' && color.color === $.Color.fn.color && color.space;
 };
 
 // Hold the default colour space for each method
 $.Color.fnspace = {};
 
 // Generate the wrapper for colour methods calls
-function wrapper( color, subject, fn, type ) {
+function wrapper( color, subject, fn, space ) {
 	return function() {
 		var args = [color];
 		Array.prototype.push.apply(args, arguments);
 		var result = fn.apply(subject, args);
-		return $.isArray(result) ? new $.Color(result, type) : result;
+		return $.isArray(result) ? new $.Color(result, space) : result;
 	};
 }
 
 // Generate the prototype for method calls
 function method( color, name ) {
-	var toType = /^to/.test(name) ? name.substring(2) : false;
+	var toSpace = /^to/.test(name) ? name.substring(2) : false;
 	
 	return function() {
 		var color = this,
@@ -125,19 +125,19 @@ function method( color, name ) {
 			util = color.util();
 		}
 		
-		var fn = wrapper(color, util, util[name], toType || color.type),
+		var fn = wrapper(color, util, util[name], toSpace || color.space),
 			result = fn.apply(color, arguments);
 		
 		// Override the function for this instance so it can be reused
 		// without the overhead of another lookup or conversion.
-		if ( toType ) {
+		if ( toSpace ) {
 			// The function will return the same result every time, so cache the result
 			this[name] = function() {
 				return result;
 			};
 			if ( $.Color.isInstance(result) ) {
 				color = this;
-				result['to'+this.type] = function() {
+				result['to'+this.space] = function() {
 					return color;
 				};
 			}
@@ -153,10 +153,10 @@ function method( color, name ) {
 function addfn() {
 	var s = this.split('.'),
 		name = s[1],
-		type = s[0];
+		space = s[0];
 	
 	if ( !$.Color.fnspace[name] ) {
-		$.Color.fnspace[name] = type;
+		$.Color.fnspace[name] = space;
 	}
 	
 	if ( !$.Color.fn[name] ) {

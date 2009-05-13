@@ -13,7 +13,7 @@ test("to", function() {
 	var blue = $.Color('blue');
 	
 	equals( blue.toHSV(), blue.to('HSV'), "Converted colour cache" );
-	equals( blue.toHSV().type, "HSV", "Colour space" );
+	equals( blue.toHSV().space, "HSV", "Colour space" );
 	equals( blue.toHSV()[0], 2/3, "Hue" );
 	equals( blue.toHSV()[1], 1, "Saturation" );
 	equals( blue.toHSV()[2], 1, "Value" );

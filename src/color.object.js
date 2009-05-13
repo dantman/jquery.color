@@ -102,12 +102,12 @@ $.Color.isInstance = function( color ) {
 $.Color.fnspace = {};
 
 // Generate the wrapper for colour methods calls
-function wrapper( color, subject, fn, space ) {
+function wrapper( color, subject, fn, space, copyName ) {
 	return function() {
 		var args = [color];
 		Array.prototype.push.apply(args, arguments);
 		var result = fn.apply(subject, args);
-		return $.isArray(result) ? new $.Color(result, space) : result;
+		return $.isArray(result) ? new $.Color(result, space, copyName ? color.name : undefined) : result;
 	};
 }
 
@@ -125,7 +125,7 @@ function method( color, name ) {
 			util = color.util();
 		}
 		
-		var fn = wrapper(color, util, util[name], toSpace || color.space),
+		var fn = wrapper(color, util, util[name], toSpace || color.space, !!toSpace),
 			result = fn.apply(color, arguments);
 		
 		// Override the function for this instance so it can be reused

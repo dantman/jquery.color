@@ -21,22 +21,22 @@ $.extend($.color, {
 		if ( typeof color === 'string' ) {
 
 			// Look for rgb(int,int,int) or rgba(int,int,int,float)
-			if ( (m = /rgb(a)?\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*(?:,\s*([0-9]+(?:\.[0-9]+)?)\s*)?\)/.exec(color)) && !m[1] === !m[5] ) {
+			if ( (m = /^\s*rgb(a)?\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*(?:,\s*([0-9]+(?:\.[0-9]+)?)\s*)?\)\s*$/.exec(color)) && !m[1] === !m[5] ) {
 				return [parseInt(m[2],10), parseInt(m[3],10), parseInt(m[4],10), m[5] ? parseFloat(m[5]) : 1];
 			}
 
 			// Look for rgb(float%,float%,float%) or rgba(float%,float%,float%,float)
-			if ( (m = /rgb(a)?\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*(?:,\s*([0-9]+(?:\.[0-9]+)?)\s*)?\)/.exec(color)) && !m[1] === !m[5] ) {
-				return [parseFloat(m[2])*2.55, parseFloat(m[3])*2.55, parseFloat(m[4])*2.55, m[5] ? parseFloat(m[5]) : 1];
+			if ( (m = /^\s*rgb(a)?\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*(?:,\s*([0-9]+(?:\.[0-9]+)?)\s*)?\)\s*$/.exec(color)) && !m[1] === !m[5] ) {
+				return [parseFloat(m[2])*255/100, parseFloat(m[3])*255/100, parseFloat(m[4])*255/100, m[5] ? parseFloat(m[5]) : 1];
 			}
 
 			// Look for #a0b1c2
-			if ( (m = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(color)) ) {
+			if ( (m = /^\s*#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})\s*$/.exec(color)) ) {
 				return [parseInt(m[1],16), parseInt(m[2],16), parseInt(m[3],16), 1];
 			}
 
 			// Look for #fff
-			if ( (m = /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(color)) ) {
+			if ( (m = /^\s*#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])\s*$/.exec(color)) ) {
 				return [parseInt(m[1]+m[1],16), parseInt(m[2]+m[2],16), parseInt(m[3]+m[3],16), 1];
 			}
 

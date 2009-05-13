@@ -12,14 +12,14 @@ test("constructor", function() {
 test("to", function() {
 	var blue = $.Color('blue');
 	
-	equals( blue.to('HSV'), blue.to('HSV'), "Converted colour cache" );
-	equals( blue.to('HSV').type, "HSV", "Colour space" );
-	equals( blue.to('HSV')[0], 2/3, "Hue" );
-	equals( blue.to('HSV')[1], 1, "Saturation" );
-	equals( blue.to('HSV')[2], 1, "Value" );
+	equals( blue.toHSV(), blue.to('HSV'), "Converted colour cache" );
+	equals( blue.toHSV().type, "HSV", "Colour space" );
+	equals( blue.toHSV()[0], 2/3, "Hue" );
+	equals( blue.toHSV()[1], 1, "Saturation" );
+	equals( blue.toHSV()[2], 1, "Value" );
 	
-	same( blue.to('HEX'), '#0000ff', "Convert to HEX" );
-	equals( blue, blue.to('HSV').to('RGB'), "Round trip RGB->HSV->RGB" );
+	same( blue.toHEX(), '#0000ff', "Convert to HEX" );
+	equals( blue, blue.toHSV().toRGB(), "Round trip RGB->HSV->RGB" );
 });
 
 test("methods", function() {

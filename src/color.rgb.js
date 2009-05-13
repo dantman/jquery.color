@@ -37,10 +37,11 @@ $.color.RGB = {
 		}
 		return 'rgb(' + Array.prototype.slice.call(rgb,0,3).join(',') + ')';
 	}
-
 };
 
 $.color.RGB.toString = $.color.RGB.toHEX;
+
+$.color.fns.push('RGB.toHEX', 'RGB.toCSS');
 
 })(jQuery)
 );

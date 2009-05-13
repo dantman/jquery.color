@@ -145,16 +145,23 @@ function addfn() {
 	var name = this.split('.')[1];
 	
 	if ( !$.Color.fn[name] ) {
-		$.Color.fn[name] = function() {
-			var method = this.method(name);
+		if ( /^to/.test(name) ) {
+			var type = name.substring(2);
+			$.Color.fn[name] = function() {
+				return this.to(type);
+			};
+		} else {
+			$.Color.fn[name] = function() {
+				var method = this.method(name);
 			
-			// Override the function for this instance
-			// so it can be reused without another lookup or conversion
-			this[name] = method;
+				// Override the function for this instance
+				// so it can be reused without another lookup or conversion
+				this[name] = method;
 			
-			// Call the actual function
-			return method.apply(this, arguments);
-		};
+				// Call the actual function
+				return method.apply(this, arguments);
+			};
+		}
 	}
 }
 

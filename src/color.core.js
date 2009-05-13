@@ -38,26 +38,12 @@ $.color = {
 		return tuple;
 	},
 	
-	// Convert a colour tuple from one representation to another
-	convert: function( tuple, srcType, dstType ) {
-		var space = $.color[srcType],
-			method = 'to'+dstType;
-		
-		if (space[method]) {
-			return space[method](tuple);
-		}
-		if (space.toRGB && $.color.RGB[method]) {
-			return $.color.RGB[method](space.toRGB(tuple));
-		}
-		
-		throw "Cannot convert color type " + fromType + " to " + toType;
+	self: function( tuple ) {
+		return tuple;
 	},
 	
 	// A collection of colour palettes
 	palette: {},
-	
-	// Supported colour spaces, in order of preference
-	space: [],
 	
 	// Registered colour functions
 	fns: []

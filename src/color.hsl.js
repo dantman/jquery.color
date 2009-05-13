@@ -11,9 +11,15 @@
  */
 (jQuery.color && (function($) {
 
-//$.color.space.push('HSL');
-
 $.color.HSL = {
+
+	fix: function ( hsv ) {
+		hsv[0] = (hsv[0] + 1) % 1;
+		return $.color.fix(hsv, '1111');
+	},
+
+	toHSL: $.color.self,
+	
 	toRGB: function ( hsl ) {
 		// TODO
 	}
@@ -24,6 +30,8 @@ $.color.RGB.toHSL =
 		// TODO
 	}
 });
+
+$.color.fns.push('HSL.toHSL', 'HSL.toRGB', 'RGB.toHSL');
 
 })(jQuery)
 );

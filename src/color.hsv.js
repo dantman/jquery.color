@@ -11,14 +11,14 @@
  */
 (jQuery.color && (function($) {
 
-$.color.space.push('HSV');
-
 $.color.HSV = {
 
 	fix: function ( hsv ) {
 		hsv[0] = (hsv[0] + 1) % 1;
 		return $.color.fix(hsv, '1111');
 	},
+	
+	toHSV: $.color.self,
 
 	// HSV values are normalized to the range 0..1
 	toRGB: function ( hsv ) {
@@ -64,7 +64,8 @@ $.color.RGB.toHSV = function ( rgb ) {
 		max];
 };
 
-$.color.fns.push('HSV.toRGB', 'RGB.toHSV', 'HSV.complementary', 'HSV.analogous');
+// Register the colour space methods
+$.color.fns.push('HSV.toHSV', 'HSV.toRGB', 'RGB.toHSV', 'HSV.complementary', 'HSV.analogous');
 
 })(jQuery)
 );

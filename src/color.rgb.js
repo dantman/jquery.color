@@ -10,8 +10,6 @@
  */
 (jQuery.color && (function($) {
 
-$.color.space.push('RGB');
-
 $.color.RGB = {
 
 	fix: function ( rgb ) {
@@ -19,6 +17,8 @@ $.color.RGB = {
 		rgb = $.color.fix(rgb, 'ooo1');
 		return rgb;
 	},
+	
+	toRGB: $.color.self,
 
 	// RGB values must be integers in the range 0-255
 	toHEX: function ( rgb ) {
@@ -41,7 +41,8 @@ $.color.RGB = {
 
 $.color.RGB.toString = $.color.RGB.toHEX;
 
-$.color.fns.push('RGB.toHEX', 'RGB.toCSS');
+// Register the colour space methods
+$.color.fns.push('RGB.toRGB', 'RGB.toHEX', 'RGB.toCSS');
 
 })(jQuery)
 );

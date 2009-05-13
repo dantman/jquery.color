@@ -49,51 +49,9 @@ $.Color.fn = $.Color.prototype = {
 		return $.color[this.type];
 	},
 	
-	// Get a utility method, converting to the most appropriate space if necessary
-	// DEPRECATED - call methods directly on the Color object
-	method: function( method ) {
-		var color = this,
-			type = this.type,
-			fn = $.color[type][method],
-			ret = function() {
-					var args = [color];
-					Array.prototype.push.apply(args, arguments);
-					return new $.Color(fn.apply(color, args), type);
-				};
-		
-		if ($.isFunction(fn)) {
-			// Method is supported by the current colour space
-			return ret;
-		} else {
-			// Find another colour space that supports the method
-			for (var i=0, l=$.color.space.length; i < l; i++) {
-				type = $.color.space[i];
-				fn = $.color[type][method];
-				if ($.isFunction(fn)) {
-					// Convert to the appropriate colour space and call the method
-					color = this.to(type);
-					return ret;
-				}
-			}
-		}
-		// Return a do-nothing function if the method is not found
-		return function() {};
-	},
-
-	// Convert the colour to different colour space
+	// Convert the colour to a different colour space
 	to: function( type ) {
-		if (type === this.type) { return this; }
-		
-		if (!this[type]) {
-			var result = $.color.convert(this, this.type, type);
-			if (typeof result !== 'string') {
-				result = new $.Color(result, type, this.name);
-				result[this.type] = this;
-			}
-			// Cache the new representation
-			this[type] = result;
-		}
-		return this[type];
+		return this['to'+type]();
 	},
 
 	// Ensure colour channels values are within the valid limits
@@ -137,31 +95,72 @@ $.Color.fn = $.Color.prototype = {
 
 // Check whether the given argument is a valid color object
 $.Color.isInstance = function( color ) {
-	return color && typeof color === 'object' && color.color && color.type;
+	return color && typeof color === 'object' && color.color === $.Color.fn.color && color.type;
 };
+
+// Hold the default colour space for each method
+$.Color.fnspace = {};
+
+// Generate the wrapper for colour methods calls
+function wrapper( color, subject, fn, type ) {
+	return function() {
+		var args = [color];
+		Array.prototype.push.apply(args, arguments);
+		var result = fn.apply(subject, args);
+		return $.isArray(result) ? new $.Color(result, type) : result;
+	};
+}
+
+// Generate the prototype for method calls
+function method( color, name ) {
+	var toType = /^to/.test(name) ? name.substring(2) : false;
+	
+	return function() {
+		var color = this,
+			util = color.util();
+		
+		if ( !util[name] ) {
+			// Convert to the appropriate colour space
+			color = color.to($.Color.fnspace[name]);
+			util = color.util();
+		}
+		
+		var fn = wrapper(color, util, util[name], toType || color.type),
+			result = fn.apply(color, arguments);
+		
+		// Override the function for this instance so it can be reused
+		// without the overhead of another lookup or conversion.
+		if ( toType ) {
+			// The function will return the same result every time, so cache the result
+			this[name] = function() {
+				return result;
+			};
+			if ( $.Color.isInstance(result) ) {
+				color = this;
+				result['to'+this.type] = function() {
+					return color;
+				};
+			}
+		} else {
+			this[name] = fn;
+		}
+		
+		return result;
+	};
+}
 
 // Add colour function to the prototype
 function addfn() {
-	var name = this.split('.')[1];
+	var s = this.split('.'),
+		name = s[1],
+		type = s[0];
+	
+	if ( !$.Color.fnspace[name] ) {
+		$.Color.fnspace[name] = type;
+	}
 	
 	if ( !$.Color.fn[name] ) {
-		if ( /^to/.test(name) ) {
-			var type = name.substring(2);
-			$.Color.fn[name] = function() {
-				return this.to(type);
-			};
-		} else {
-			$.Color.fn[name] = function() {
-				var method = this.method(name);
-			
-				// Override the function for this instance
-				// so it can be reused without another lookup or conversion
-				this[name] = method;
-			
-				// Call the actual function
-				return method.apply(this, arguments);
-			};
-		}
+		$.Color.fn[name] = method(this, name);
 	}
 }
 

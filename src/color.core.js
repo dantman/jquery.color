@@ -56,8 +56,11 @@ $.color = {
 	// A collection of colour palettes
 	palette: {},
 	
-	// Supported colour spaces, in order or preferrence
-	space: []
+	// Supported colour spaces, in order of preference
+	space: [],
+	
+	// Registered colour functions
+	fns: []
 };
 
 })(jQuery)

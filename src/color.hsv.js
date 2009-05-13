@@ -47,6 +47,8 @@ $.color.HSV = {
 	}
 };
 
+$.color.fns.push('HSV.complementary', 'HSV.analogous');
+
 $.color.RGB.toHSV = function ( rgb ) {
 	var r = rgb[0]/255,
 		g = rgb[1]/255,

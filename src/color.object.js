@@ -50,6 +50,7 @@ $.Color.fn = $.Color.prototype = {
 	},
 	
 	// Get a utility method, converting to the most appropriate space if necessary
+	// DEPRECATED - call methods directly on the Color object
 	method: function( method ) {
 		var color = this,
 			type = this.type,
@@ -137,6 +138,33 @@ $.Color.fn = $.Color.prototype = {
 // Check whether the given argument is a valid color object
 $.Color.isInstance = function( color ) {
 	return color && typeof color === 'object' && color.color && color.type;
+};
+
+// Add colour function to the prototype
+function addfn() {
+	var name = this.split('.')[1];
+	
+	if ( !$.Color.fn[name] ) {
+		$.Color.fn[name] = function() {
+			var method = this.method(name);
+			
+			// Override the function for this instance
+			// so it can be reused without another lookup or conversion
+			this[name] = method;
+			
+			// Call the actual function
+			return method.apply(this, arguments);
+		};
+	}
+}
+
+// Add existing functions
+$.each($.color.fns, addfn);
+
+// Override push to catch new functions
+$.color.fns.push = function() {
+	$.each(arguments, addfn);
+	return Array.prototype.push.apply(this, arguments);
 };
 
 })(jQuery)

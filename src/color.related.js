@@ -14,22 +14,20 @@
 $.Color.fn.related = function( offset ) {
 	var i18n = $.Color.fn.related.i18n,
 		off = offset || $.Color.fn.related.offset,
-		offD = Math.round(off * 360) + i18n.deg,
-		comp = this.method('complementary'),
-		anal = this.method('analogous');
+		offD = Math.round(off * 360) + i18n.deg;
 	
 	return {
-		'anal-': anal(-off).setName(i18n.anal + ' -' + offD),
-		'anal0': anal().setName(i18n.orig),
-		'anal+': anal(off).setName(i18n.anal + ' +' + offD),
+		'anal-': this.analogous(-off).setName(i18n.anal + ' -' + offD),
+		'anal0': this.analogous().setName(i18n.orig),
+		'anal+': this.analogous(off).setName(i18n.anal + ' +' + offD),
 		
-		'comp-': comp(-off).setName(i18n.split + ' -' + offD),
-		'comp0': comp().setName(i18n.comp),
-		'comp+': comp(off).setName(i18n.split + ' +' + offD),
+		'comp-': this.complementary(-off).setName(i18n.split + ' -' + offD),
+		'comp0': this.complementary().setName(i18n.comp),
+		'comp+': this.complementary(off).setName(i18n.split + ' +' + offD),
 		
-		'triad-': anal(-1/3).setName(i18n.triad + ' -120' + i18n.deg),
-		'triad0': anal().setName(i18n.orig),
-		'triad+': anal(1/3).setName(i18n.triad + ' +120' + i18n.deg)
+		'triad-': this.analogous(-1/3).setName(i18n.triad + ' -120' + i18n.deg),
+		'triad0': this.analogous().setName(i18n.orig),
+		'triad+': this.analogous(1/3).setName(i18n.triad + ' +120' + i18n.deg)
 	};
 };
 

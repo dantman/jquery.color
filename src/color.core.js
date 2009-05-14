@@ -4,6 +4,10 @@
  * Copyright (c) 2009 Adaptavist.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * Author: Mark Gibson (jollytoad at gmail dot com)
+ *
+ * http://www.adaptavist.com/display/free/jquery.color
  */
 (jQuery.color || (function($) {
 

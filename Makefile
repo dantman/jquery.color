@@ -9,5 +9,9 @@ MODULES = \
 	color.related.js\
 	color.palette.css3.js
 
+OPTIONAL_MODULES = \
+	color.palette.websafe.js \
+	color.palette.html4.js
+
 include build/rules.mk
 

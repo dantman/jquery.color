@@ -1,4 +1,4 @@
-PACKAGE = jquery-color
+PACKAGE = jquery.color
 
 MODULES = \
 	color.core.js\

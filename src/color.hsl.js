@@ -13,9 +13,9 @@
 
 $.color.HSL = {
 
-	fix: function ( hsv ) {
-		hsv[0] = (hsv[0] + 1) % 1;
-		return $.color.fix(hsv, '1111');
+	fix: function ( hsl ) {
+		hsl[0] = (hsl[0] + 1) % 1;
+		return $.color.fix(hsl, '1111');
 	},
 
 	toHSL: $.color.self,

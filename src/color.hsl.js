@@ -21,7 +21,18 @@ $.color.HSL = {
 	toHSL: $.color.self,
 	
 	toRGB: function ( hsl ) {
-		// TODO
+		var h = hsl[0],
+			s = rgb[1],
+			l = rgb[2],
+			q = l < .5 ? l*(1+s) : l + s - (l *s),
+			p = 2*l-q,
+			tr = (h + 1/3) % 1,
+			tg = (h) % 1,
+			tb = (h - 1/3) % 1,
+			max = Math.max(r,g,b),
+			d = max - min,
+			t = max + min,
+			l = t/2;
 	}
 };
 

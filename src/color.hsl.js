@@ -59,8 +59,7 @@ $.color.RGB.toHSL =function ( rgb ) {
                 l <= .5 ? d/t :
                 d/(2-t),
 		l];
-	}
-});
+};
 
 $.color.fns.push('HSL.toHSL', 'HSL.toRGB', 'RGB.toHSL');
 

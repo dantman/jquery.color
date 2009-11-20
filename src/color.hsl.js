@@ -29,10 +29,14 @@ $.color.HSL = {
 			tr = (h + 1/3) % 1,
 			tg = (h) % 1,
 			tb = (h - 1/3) % 1,
-			max = Math.max(r,g,b),
-			d = max - min,
-			t = max + min,
-			l = t/2;
+			k = (q - p) * 6,
+			j = function(a){
+				return  a < 1/6 ? p + (k * a) :
+					a < 1/2 ? q :
+					a < 2/3 ? p + (k * (2/3 - a)) :
+					p;
+			};
+			return [j(tr),j(tg),j(tb)];
 	}
 };
 

@@ -22,8 +22,8 @@ $.color.HSL = {
 	
 	toRGB: function ( hsl ) {
 		var h = hsl[0],
-			s = rgb[1],
-			l = rgb[2],
+			s = hsl[1],
+			l = hsl[2],
 			q = l < .5 ? l*(1+s) : l + s - (l *s),
 			p = 2*l-q,
 			tr = (h + 1/3) % 1,

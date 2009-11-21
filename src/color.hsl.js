@@ -40,6 +40,18 @@ $.color.HSL = {
 	}
 };
 
+var j = ["hue","saturation","lightness","alpha"],
+	i = j.length;
+while (i--){
+	$.color.HSL[j[i]] = (function(){
+		var c = i;
+		return function(hsl){
+			return !!hsl[c] ? hsl[c] : 0;
+    	};
+	})();
+	$.color.fns.push('HSL.'+j[i]);
+}
+
 $.color.RGB.toHSL =function ( rgb ) {
 	var r = rgb[0]/255,
 		g = rgb[1]/255,

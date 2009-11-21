@@ -47,6 +47,18 @@ $.color.HSV = {
 	}
 };
 
+var j = ["hue","saturation","value","alpha"],
+	i = j.length;
+while (i--){
+	$.color.HSV[j[i]] = (function(){
+		var c = i;
+		return function(hsv){
+			return !!hsv[c] ? hsv[c] : 0;
+    	};
+	})();
+	$.color.fns.push('HSV.'+j[i]);
+}
+
 $.color.RGB.toHSV = function ( rgb ) {
 	var r = rgb[0]/255,
 		g = rgb[1]/255,

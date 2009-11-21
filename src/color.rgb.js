@@ -39,6 +39,18 @@ $.color.RGB = {
 	}
 };
 
+var j = ["red","green","blue","alpha"],
+	i = j.length;
+while (i--){
+	$.color.RGB[j[i]] = (function(){
+		var c = i;
+		return function(rgb){
+			return !!rgb[c] ? rgb[c] : 0;
+    	};
+	})();
+	$.color.fns.push('RGB.'+j[i]);
+}
+
 $.color.RGB.toString = $.color.RGB.toHEX;
 
 // Register the colour space methods

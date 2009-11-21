@@ -155,7 +155,8 @@ function addfn() {
 		name = s[1],
 		space = s[0];
 	
-	if ( !$.Color.fnspace[name] ) {
+	// the to colour space function should not be stuck to its on colour space
+	if ( !$.Color.fnspace[name]  && name != "to" + space ) {
 		$.Color.fnspace[name] = space;
 	}
 	
